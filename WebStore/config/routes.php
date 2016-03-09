@@ -64,30 +64,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     /* Product */
     $routes->connect('/admin/product/add', ['controller' => 'Product', 'action' => 'add']);
     $routes->connect('/admin/product/all', ['controller' => 'Product', 'action' => 'index']);
+    $routes->connect('/admin/product/view/:id', ['controller' => 'Product', 'action' => 'view'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
 
-
-    /**
-     * ...and connect the rest of 'Pages' controller's URLs.
-     */
-    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
-
-    /**
-     * Connect catchall routes for all controllers.
-     *
-     * Using the argument `DashedRoute`, the `fallbacks` method is a shortcut for
-     *    `$routes->connect('/:controller', ['action' => 'index'], ['routeClass' => 'DashedRoute']);`
-     *    `$routes->connect('/:controller/:action/*', [], ['routeClass' => 'DashedRoute']);`
-     *
-     * Any route class can be used with this method, such as:
-     * - DashedRoute
-     * - InflectedRoute
-     * - Route
-     * - Or your own route class
-     *
-     * You can remove these routes once you've connected the
-     * routes you want in your application.
-     */
-    $routes->fallbacks('DashedRoute');
 });
 
 /**

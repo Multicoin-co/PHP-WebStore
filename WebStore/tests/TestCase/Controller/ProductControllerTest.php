@@ -21,8 +21,6 @@ class ProductControllerTest extends IntegrationTestCase
         'app.order',
         'app.users',
         'app.address',
-        'app.payment_info',
-        'app.payments',
         'app.product_images'
     ];
 
@@ -33,7 +31,21 @@ class ProductControllerTest extends IntegrationTestCase
      */
     public function testIndex()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+	// Check the main page
+	$this->get('/admin/product/all');
+	$this->assertResponseOk();
+	$this->assertResponseContains('Product');
+	$this->assertLayout('default');
+	$this->assertTemplate('index');
+
+	// We need pagination so test it
+	$this->get('/admin/product/all?page=1');
+	$this->assertResponseOk();
+	$this->assertResponseContains('Product');
+
+	// Second page should 404 because there isnt enough data
+	$this->get('/admin/product/all?page=2');
+	$this->assertResponseError();
     }
 
     /**
@@ -43,7 +55,16 @@ class ProductControllerTest extends IntegrationTestCase
      */
     public function testView()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+	$this->get('/admin/product/view/1');
+	$this->assertResponseOk();
+	$this->assertResponseContains('Product');
+	$this->assertLayout('default');
+	$this->assertTemplate('view');
+
+	// We dont want users to be able to see the products admin page
+	$this->get('/product/view/1');
+	$this->assertResponseError();
+
     }
 
     /**

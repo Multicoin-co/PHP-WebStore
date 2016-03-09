@@ -30,7 +30,6 @@ class PaymentInfoTableTest extends TestCase
         'app.address',
         'app.order_items',
         'app.product',
-        'app.payments'
     ];
 
     /**

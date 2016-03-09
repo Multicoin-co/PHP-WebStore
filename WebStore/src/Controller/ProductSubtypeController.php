@@ -35,7 +35,7 @@ class ProductSubtypeController extends AppController
     public function view($id = null)
     {
         $productSubtype = $this->ProductSubtype->get($id, [
-            'contain' => []
+            'contain' => ['ProductType']
         ]);
 
         $this->set('productSubtype', $productSubtype);
@@ -79,6 +79,9 @@ class ProductSubtypeController extends AppController
      */
     public function edit($id = null)
     {
+	$product_type_table = TableRegistry::get('ProductType');
+
+	$product_types = $product_type_table->find('list');
         $productSubtype = $this->ProductSubtype->get($id, [
             'contain' => []
         ]);
@@ -91,8 +94,8 @@ class ProductSubtypeController extends AppController
                 $this->Flash->error(__('The product subtype could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('productSubtype'));
-        $this->set('_serialize', ['productSubtype']);
+        $this->set(compact('productSubtype', 'product_types'));
+        $this->set('_serialize', ['productSubtype', 'product_types']);
     }
 
     /**

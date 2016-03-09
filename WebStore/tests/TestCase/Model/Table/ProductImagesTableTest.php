@@ -31,7 +31,6 @@ class ProductImagesTableTest extends TestCase
         'app.users',
         'app.address',
         'app.payment_info',
-        'app.payments'
     ];
 
     /**

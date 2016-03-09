@@ -30,7 +30,6 @@ class ProductTableTest extends TestCase
         'app.users',
         'app.address',
         'app.payment_info',
-        'app.payments',
         'app.product_images'
     ];
 

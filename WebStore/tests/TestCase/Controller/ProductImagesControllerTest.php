@@ -22,8 +22,6 @@ class ProductImagesControllerTest extends IntegrationTestCase
         'app.order',
         'app.users',
         'app.address',
-        'app.payment_info',
-        'app.payments'
     ];
 
     /**

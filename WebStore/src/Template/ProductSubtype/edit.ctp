@@ -15,7 +15,7 @@
     <fieldset>
         <legend><?= __('Edit Product Subtype') ?></legend>
         <?php
-            echo $this->Form->input('fkProductTypeID');
+            echo $this->Form->input('fkProductTypeID', ['type' => 'select', 'options' => $product_types, 'label' => ['text' => 'Product Type']]);
             echo $this->Form->input('name');
             echo $this->Form->input('description');
         ?>
