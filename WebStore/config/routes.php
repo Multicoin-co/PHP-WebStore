@@ -49,13 +49,22 @@ Router::scope('/', function (RouteBuilder $routes) {
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
-   
+
     /* Admin Controller */
     $routes->connect('/admin', ['controller' => 'Admin', 'action' => 'index']);
 
-
+    /* Product Type */
     $routes->connect('/admin/product_type/add', ['controller' => 'ProductType', 'action' => 'add']);
     $routes->connect('/admin/product_type/all', ['controller' => 'ProductType', 'action' => 'index']);
+
+    /* Product Sub Type */
+    $routes->connect('/admin/product-sub-type/add', ['controller' => 'ProductSubType', 'action' => 'add']);
+    $routes->connect('/admin/product-sub-type/all', ['controller' => 'ProductSubType', 'action' => 'index']);
+
+    /* Product */
+    $routes->connect('/admin/product/add', ['controller' => 'Product', 'action' => 'add']);
+    $routes->connect('/admin/product/all', ['controller' => 'Product', 'action' => 'index']);
+
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
