@@ -10,6 +10,8 @@ use Cake\Validation\Validator;
 /**
  * ProductSubtype Model
  *
+ * @property \Cake\ORM\Association\belongsTo $ProductType
+
  */
 class ProductSubtypeTable extends Table
 {
@@ -27,6 +29,11 @@ class ProductSubtypeTable extends Table
         $this->table('product_subtype');
         $this->displayField('name');
         $this->primaryKey('id');
+
+        $this->belongsTo('ProductType', [
+            'foreignKey' => 'fkProductTypeID'
+        ]);
+
     }
 
     /**
