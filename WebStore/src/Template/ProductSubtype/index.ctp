@@ -2,6 +2,7 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Product Subtype'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Back to Admin'), ['controller' => 'Admin', 'action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="productSubtype index large-9 medium-8 columns content">

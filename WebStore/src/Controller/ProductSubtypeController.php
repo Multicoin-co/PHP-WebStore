@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * ProductSubtype Controller
@@ -48,6 +49,13 @@ class ProductSubtypeController extends AppController
      */
     public function add()
     {
+	// Load Product Types Table
+	$product_type_table = TableRegistry::get('ProductType');
+
+	// Query for all types
+	$product_types = $product_type_table->find('list');
+
+	// Create a Product Subtype object to save the POST data
         $productSubtype = $this->ProductSubtype->newEntity();
         if ($this->request->is('post')) {
             $productSubtype = $this->ProductSubtype->patchEntity($productSubtype, $this->request->data);
@@ -58,8 +66,8 @@ class ProductSubtypeController extends AppController
                 $this->Flash->error(__('The product subtype could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('productSubtype'));
-        $this->set('_serialize', ['productSubtype']);
+        $this->set(compact('productSubtype', 'product_types'));
+        $this->set('_serialize', ['productSubtype', 'product_types']);
     }
 
     /**

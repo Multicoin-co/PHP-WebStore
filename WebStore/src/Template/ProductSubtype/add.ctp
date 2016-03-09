@@ -2,6 +2,7 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Product Subtype'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Back to Admin'), ['controller' => 'Admin', 'action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="productSubtype form large-9 medium-8 columns content">
@@ -9,7 +10,7 @@
     <fieldset>
         <legend><?= __('Add Product Subtype') ?></legend>
         <?php
-            echo $this->Form->input('fkProductTypeID');
+            echo $this->Form->input('fkProductTypeID', ['type' => 'select', 'options' => $product_types, 'label' => ['text' => 'Product Type']]);
             echo $this->Form->input('name');
             echo $this->Form->input('description');
         ?>
