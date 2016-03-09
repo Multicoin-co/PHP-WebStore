@@ -2,10 +2,7 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Product'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Order Items'), ['controller' => 'OrderItems', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Order Item'), ['controller' => 'OrderItems', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Product Images'), ['controller' => 'ProductImages', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Product Image'), ['controller' => 'ProductImages', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Back to Admin'), ['controller' => 'Admin', 'action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="product index large-9 medium-8 columns content">
@@ -13,13 +10,14 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('fkProductSubTypeID') ?></th>
-                <th><?= $this->Paginator->sort('name') ?></th>
-                <th><?= $this->Paginator->sort('description') ?></th>
-                <th><?= $this->Paginator->sort('Manufacturer') ?></th>
-                <th><?= $this->Paginator->sort('price') ?></th>
-                <th><?= $this->Paginator->sort('stock') ?></th>
+                <th><?= $this->Paginator->sort('Product ID') ?></th>
+		<th><?= $this->Paginator->sort('Product Type') ?></th>
+                <th><?= $this->Paginator->sort('Product SubType') ?></th>
+                <th><?= $this->Paginator->sort('Product Name') ?></th>
+                <th><?= $this->Paginator->sort('Product Description') ?></th>
+                <th><?= $this->Paginator->sort('Product Manufacturer') ?></th>
+                <th><?= $this->Paginator->sort('Product Price') ?></th>
+                <th><?= $this->Paginator->sort('Product Stock Count') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -27,7 +25,8 @@
             <?php foreach ($product as $product): ?>
             <tr>
                 <td><?= $this->Number->format($product->id) ?></td>
-                <td><?= $this->Number->format($product->fkProductSubTypeID) ?></td>
+		<td><?= h($product->product_subtype->product_type->name) ?></td>
+                <td><?= h($product->product_subtype->name) ?></td>
                 <td><?= h($product->name) ?></td>
                 <td><?= h($product->description) ?></td>
                 <td><?= h($product->Manufacturer) ?></td>

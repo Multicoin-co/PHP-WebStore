@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\HasMany $OrderItems
  * @property \Cake\ORM\Association\HasMany $ProductImages
+ * @property \Cake\ORM\Association\belongsTo $ProductSubType
  */
 class ProductTable extends Table
 {
@@ -36,6 +37,9 @@ class ProductTable extends Table
         $this->hasMany('ProductImages', [
             'foreignKey' => 'product_id'
         ]);
+	$this->belongsTo('ProductSubtype', [
+	    'foreignKey' => 'fkProductSubTypeID'
+	]);
     }
 
     /**

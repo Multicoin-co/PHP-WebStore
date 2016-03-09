@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Product Controller
@@ -18,7 +19,7 @@ class ProductController extends AppController
      */
     public function index()
     {
-        $product = $this->paginate($this->Product);
+        $product = $this->paginate($this->Product->find('all', ['contain' => ['ProductSubtype', 'ProductSubtype.ProductType']]));
 
         $this->set(compact('product'));
         $this->set('_serialize', ['product']);
@@ -48,6 +49,13 @@ class ProductController extends AppController
      */
     public function add()
     {
+        // Load Product Types and Product Type Tables
+	$product_subtype_table = TableRegistry::get('ProductSubtype');
+
+        // Query for all types
+	$product_subtypes = $product_subtype_table->find('list');
+
+	// Create a Product object for saving the data
         $product = $this->Product->newEntity();
         if ($this->request->is('post')) {
             $product = $this->Product->patchEntity($product, $this->request->data);
@@ -58,8 +66,8 @@ class ProductController extends AppController
                 $this->Flash->error(__('The product could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('product'));
-        $this->set('_serialize', ['product']);
+        $this->set(compact('product', 'product_types', 'product_subtypes'));
+        $this->set('_serialize', ['product', 'product_types', 'product_subtypes']);
     }
 
     /**
