@@ -43,12 +43,6 @@ use Cake\Routing\Router;
 Router::defaultRouteClass('DashedRoute');
 
 Router::scope('/', function (RouteBuilder $routes) {
-    /**
-     * Here, we are connecting '/' (base path) to a controller called 'Pages',
-     * its action called 'display', and we pass a param to select the view file
-     * to use (in this case, src/Template/Pages/home.ctp)...
-     */
-    $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
 
     /* Admin Controller */
     $routes->connect('/admin', ['controller' => 'Admin', 'action' => 'index']);
@@ -56,16 +50,34 @@ Router::scope('/', function (RouteBuilder $routes) {
     /* Product Type */
     $routes->connect('/admin/product_type/add', ['controller' => 'ProductType', 'action' => 'add']);
     $routes->connect('/admin/product_type/all', ['controller' => 'ProductType', 'action' => 'index']);
+    $routes->connect('/admin/product_type/view/:id', ['controller' => 'ProductType', 'action' => 'view'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
+    $routes->connect('/admin/product_type/edit/:id', ['controller' => 'ProductType', 'action' => 'edit'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
+    $routes->connect('/admin/product_type/delete/:id', ['controller' => 'ProductType', 'action' => 'delete'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
 
     /* Product Sub Type */
-    $routes->connect('/admin/product-sub-type/add', ['controller' => 'ProductSubType', 'action' => 'add']);
-    $routes->connect('/admin/product-sub-type/all', ['controller' => 'ProductSubType', 'action' => 'index']);
+    $routes->connect('/admin/product-sub-type/add', ['controller' => 'ProductSubtype', 'action' => 'add']);
+    $routes->connect('/admin/product-sub-type/all', ['controller' => 'ProductSubtype', 'action' => 'index']);
+    $routes->connect('/admin/product-sub-type/view/:id', ['controller' => 'ProductSubtype', 'action' => 'view'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
+    $routes->connect('/admin/product-sub-type/edit/:id', ['controller' => 'ProductSubtype', 'action' => 'edit'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
+    $routes->connect('/admin/product-sub-type/delete/:id', ['controller' => 'ProductSubtype', 'action' => 'delete'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
 
     /* Product */
     $routes->connect('/admin/product/add', ['controller' => 'Product', 'action' => 'add']);
     $routes->connect('/admin/product/all', ['controller' => 'Product', 'action' => 'index']);
     $routes->connect('/admin/product/view/:id', ['controller' => 'Product', 'action' => 'view'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
+    $routes->connect('/admin/product/edit/:id', ['controller' => 'Product', 'action' => 'edit'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
+    $routes->connect('/admin/product/delete/:id', ['controller' => 'Product', 'action' => 'delete'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
 
+   /* Users */
+   $routes->connect('/admin/users/add', ['controller' => 'Users', 'action' => 'add']);
+   $routes->connect('/admin/users/all', ['controller' => 'Users', 'action' => 'index']);
+   $routes->connect('/admin/users/view/:id', ['controller' => 'Users', 'action' => 'view'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
+   $routes->connect('/admin/users/edit/:id', ['controller' => 'Users', 'action' => 'edit'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
+   $routes->connect('/admin/users/delete/:id', ['controller' => 'Users', 'action' => 'delete'], ['id' => '[0-9\-]+', 'pass' => ['id']]);
+
+   /* Admin Reports */
+   $routes->connect('/admin/reports/orders', ['controller' => 'Admin', 'action' => 'recentOrders']);
+   $routes->connect('/admin/reports/users', ['controller' => 'Admin', 'action' => 'recentUsers']);
 });
 
 /**

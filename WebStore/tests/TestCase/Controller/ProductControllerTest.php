@@ -3,6 +3,7 @@ namespace App\Test\TestCase\Controller;
 
 use App\Controller\ProductController;
 use Cake\TestSuite\IntegrationTestCase;
+use Cake\ORM\TableRegistry;
 
 /**
  * App\Controller\ProductController Test Case
@@ -21,7 +22,10 @@ class ProductControllerTest extends IntegrationTestCase
         'app.order',
         'app.users',
         'app.address',
-        'app.product_images'
+        'app.product_images',
+	'app.product_subtype',
+	'app.product_type',
+
     ];
 
     /**
@@ -74,7 +78,31 @@ class ProductControllerTest extends IntegrationTestCase
      */
     public function testAdd()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+	$product_table = TableRegistry::get('Product');
+    	$this->enableCsrfToken();
+    	$this->enableSecurityToken();
+
+	// Arrays of different data sent to the servers to test different scenarios
+	$data_item_ok      	   = ['fkproductsubtypeid' => 1,    'name' => 'testAdd1',  'description' => '',   'manufacturer' => 'UnitTests', 'price' => 100.00, 'stock' => 0];
+	$data_item_no_id   	   = ['fkproductsubtypeid' => null, 'name' => 'testAdd2',  'description' => '',   'manufacturer' => 'UnitTests', 'price' => 100.00, 'stock' => 0];
+	$data_item_no_name     	   = ['fkproductsubtypeid' => 1,    'name' => null,        'description' => '',   'manufacturer' => 'UnitTests', 'price' => 100.00, 'stock' => 0];
+	$data_item_no_desc 	   = ['fkproductsubtypeid' => 1,    'name' => 'testAdd4',  'description' => null, 'manufacturer' => 'UnitTests', 'price' => 100.00, 'stock' => 0];
+	$data_item_no_manufacturer = ['fkproductsubtypeid' => 1,    'name' => 'testAdd5',  'description' => '',   'manufacturer' => null,        'price' => 100.00, 'stock' => 0];
+	$data_item_no_price 	   = ['fkproductsubtypeid' => 1,    'name' => 'testAdd6',  'description' => '',   'manufacturer' => 'UnitTests', 'price' => null,   'stock' => 0];
+	$data_item_no_stock 	   = ['fkproductsubtypeid' => 1,    'name' => 'testAdd7',  'description' => '',   'manufacturer' => 'UnitTests', 'price' => 100.00, 'stock' => null];
+	$data_item_negative_id 	   = ['fkproductsubtypeid' => -1,   'name' => 'testAdd8',  'description' => '',   'manufacturer' => 'UnitTests', 'price' => 100.00, 'stock' => 0];
+	$data_item_false_id        = ['fkproductsubtypeid' => 5,    'name' => 'testAdd9',  'description' => '',   'manufacturer' => 'UnitTests', 'price' => 100.00, 'stock' => 0];
+	$data_item_invalid_price   = ['fkproductsubtypeid' => 1,    'name' => 'testAdd10', 'description' => '',   'manufacturer' => 'UnitTests', 'price' => -10.00, 'stock' => 0];
+	$date_item_invalid_stock   = ['fkproductsubtypeid' => 1,    'name' => 'testAdd11', 'description' => '',   'manufacturer' => 'UnitTests', 'price' => 100.00, 'stock' => -1];
+
+
+	// First test valid data by making the POST request to the site then searching the db
+	$this->post('/admin/product/add', $data_item_ok);
+        $this->assertResponseSuccess();
+	$record = $product_table->find()->where(['name' => $data_item_ok['name']]);
+	$this->assertEquals(1, $record->count());
+
+
     }
 
     /**
