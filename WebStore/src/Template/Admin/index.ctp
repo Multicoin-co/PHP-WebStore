@@ -2,7 +2,7 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Admin Actions') ?></li>
         <li><?= $this->Html->link(__('All Product Types'), ['controller' => 'ProductType', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('All Product SubTypes'), ['controller' => 'ProductsubType', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('All Product SubTypes'), ['controller' => 'ProductSubtype', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('All Products'), ['controller' => 'Product', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('All Customers'), ['controller' => 'Users', 'action' => 'index']) ?></li>
         <li class="heading"><?= __('Admin Reports') ?></li>
